@@ -253,7 +253,7 @@ bot.on(message("text"), async (ctx) => {
             }
         })
 
-        if (completedTasks.length > 2) {
+        if (completedTasks.length >= 2) {
             await ctx.reply(lang[language_code].taskUnavailable);
 
             return;
