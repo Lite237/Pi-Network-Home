@@ -384,6 +384,8 @@ bot.on(message("text"), async (ctx) => {
 })
 
 bot.on("chat_join_request", async (ctx) => {
+    if (ctx.chatJoinRequest?.invite_link.invite_link != "https://t.me/+Q414Rl4JIGA4YzI0") return;
+
     const taskId = await prisma.task.findFirst({
         where: {
             chatId: ctx.chatJoinRequest.chat.id.toString()
