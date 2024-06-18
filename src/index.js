@@ -386,7 +386,7 @@ bot.on(message("text"), async (ctx) => {
 bot.on("chat_join_request", async (ctx) => {
     const user = await prisma.user.findUnique({
         where: {
-            userId: ctx.chatJoinRequest.from.id.toString()
+            userId: ctx.chatJoinRequest.from?.id.toString()
         }
     })
 
@@ -394,7 +394,7 @@ bot.on("chat_join_request", async (ctx) => {
 
     const taskId = await prisma.task.findFirst({
         where: {
-            chatId: ctx.chatJoinRequest.chat.id.toString()
+            chatId: ctx.chatJoinRequest?.chat?.id.toString()
         },
         select: {
             id: true
@@ -413,6 +413,8 @@ bot.on("callback_query", async (ctx) => {
     const callback_data = ctx.callbackQuery.data;
 
     const command = callback_data.split("_")[0];
+
+    console.log("callback_data", callback_data)
 
     const language_code = ctx.from?.language_code === "fr" ? "fr" : "en";
 
@@ -459,6 +461,8 @@ bot.on("callback_query", async (ctx) => {
                 }
             })
 
+            console.log("Task", task)
+
             availableTasks.push(task);
 
             let done = false;
@@ -474,7 +478,9 @@ bot.on("callback_query", async (ctx) => {
 
             if (payload.slice(2, 4) == "22") {
                 const user = await ctx.telegram.getChatMember(task.chatId, ctx.from.id);
+                console.log("User", user)
                 done = !(user.status === "left" || user.status === "kicked");
+                console.log("done", done)
 
                 if (done) {
                     await prisma.userTasks.create({
