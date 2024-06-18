@@ -414,8 +414,6 @@ bot.on("callback_query", async (ctx) => {
 
     const command = callback_data.split("_")[0];
 
-    console.log("callback_data", callback_data)
-
     const language_code = ctx.from?.language_code === "fr" ? "fr" : "en";
 
     if (command === "verify") {
@@ -461,8 +459,6 @@ bot.on("callback_query", async (ctx) => {
                 }
             })
 
-            console.log("Task", task)
-
             availableTasks.push(task);
 
             let done = false;
@@ -478,10 +474,7 @@ bot.on("callback_query", async (ctx) => {
 
             if (payload.slice(2, 4) == "22") {
                 const user = await ctx.telegram.getChatMember(task.chatId, ctx.from.id);
-                console.log("User", user)
                 done = !(user.status === "left" || user.status === "kicked");
-                console.log("done", done)
-
                 if (done) {
                     await prisma.userTasks.create({
                         data: {
