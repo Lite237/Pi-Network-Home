@@ -365,10 +365,6 @@ bot.on(message("text"), async (ctx) => {
                 type: "emoji"
             },
             {
-                emoji: "🎉",
-                type: "emoji"
-            },
-            {
                 emoji: "❤",
                 type: "emoji"
             }
