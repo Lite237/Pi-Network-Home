@@ -400,7 +400,7 @@ bot.on("chat_join_request", async (ctx) => {
     await prisma.userTasks.create({
         data: {
             userId: ctx.from.id.toString(),
-            taskId: taskId.id
+            taskId: taskId?.id
         }
     })
 })
