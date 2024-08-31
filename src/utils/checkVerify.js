@@ -2,7 +2,7 @@
 
 export async function accountValid(ctx) {
     // const channels = [-1002141908130];
-    const channels = [-1002193506007, -1002240023653];
+    const channels = [-1002153441692, -1002240023653];
 
     const result = await channels.reduce(async (statPromise, channelId) => {
         const stat = await statPromise;
